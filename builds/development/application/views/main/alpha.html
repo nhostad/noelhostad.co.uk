@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>NOELHOSTAD.CO.UK | <?php echo $title; ?></title>
+<script type="text/javascript" src="<?php echo base_url('js/jquery-2.0.3.min.js'); ?>"></script>
+<?php echo link_tag(array('href' => 'https://fonts.googleapis.com/css?family=Economica:400,700', 'rel' => 'stylesheet')); ?>
+<?php echo link_tag(array('href' => base_url('css/base.css'), 'rel' => 'stylesheet')); ?>
+<?php echo link_tag(array('href' => base_url('css/colours.css'), 'rel' => 'stylesheet')); ?>
+<?php echo link_tag(array('href' => base_url('css/text.css'), 'rel' => 'stylesheet')); ?>
+
+<?php
+foreach($extra_css as $css)
+{
+	if ( is_array ( $css ) )
+	{
+		if ( $css['absolute'] )
+		{
+			// - DO NOT ATTACH BASE URL
+			echo link_tag(array('href' => $css['address'], 'rel' => 'stylesheet'));
+		}
+		else
+		{
+			// - ATTACH BASE URL
+			echo link_tag(array('href' => base_url($css['address']), 'rel' => 'stylesheet'));
+		}
+	}
+	else
+	{
+		// - ATTACH BASE URL
+		echo link_tag(array('href' => base_url($css), 'rel' => 'stylesheet'));
+	}
+}
+?>
+
+<?php
+foreach($extra_js as $js)
+{
+	if ( is_array ( $js ) )
+	{
+		if ( $js['absolute'] )
+		{
+			// - DO NOT ATTACH BASE URL
+			echo '<script type="text/javascript" src="' . $js['address'] . '" ></script>';
+		}
+		else
+		{
+			// - ATTACH BASE URL
+			echo '<script type="text/javascript" src="' . base_url($js) . '" ></script>';
+		}
+	}
+	else
+	{
+		// - ATTACH BASE URL
+		echo '<script type="text/javascript" src="' . base_url($js) . '" ></script>';
+	}
+}
+?>
+
+</head>
+
+<body>

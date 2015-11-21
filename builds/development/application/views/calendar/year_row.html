@@ -1,0 +1,149 @@
+<style>
+.year_row
+{
+	position:relative;
+	display:table;
+	height:40px;
+	margin:20px auto;
+}
+
+.year_row_month
+{
+	float:left;
+	position:relative;
+	width:63px;
+	padding:5px;
+	margin:0 2px;
+	border-radius:3px;
+	border-width:1px;
+	border-style:solid;
+	
+	border-color:#DDDDDD;
+	background:#FFFFFF;
+}
+
+.year_row_month:first-child
+{
+	margin-left:0;
+}
+
+.year_row_month:last-child
+{
+	margin-right:0;
+}
+
+.year_row_day
+{
+	float:left;
+	width:3px;
+	height:3px;
+	margin:3px;
+	border-radius:5px;
+	
+	background-color:#AAAAAA;
+}
+
+.year_row_day.year_row_event
+{
+	width:5px;
+	height:5px;
+	margin:2px;
+	
+	background-color:#FF3333;
+}
+
+.year_row_month_name
+{
+	position:absolute;
+	left:0;
+	top:-13px;
+	width:100%;
+	text-align:center;
+	font-size:12px;
+	
+	color:#999999;
+}
+
+.selected_month
+{
+	border-width:1px 3px;
+	margin:0 1px;
+	border-color:#99DD33;
+	background-color:#F4FFF1;
+}
+
+.not_in_month
+{
+	background-color:#EEEEEE;
+}
+
+.year_row .next_btn,
+.year_row .prev_btn
+{
+	position:absolute;
+	top:2px;
+	width:41px;
+	height:82px;
+	background-repeat:no-repeat;
+}
+
+.year_row .next_btn,
+.year_row .prev_btn
+{
+	right:-45px;
+	background-image:url('/portal/assets/theme/koloko/image/calendar/next_arrow_out.png');
+}
+
+.year_row .prev_btn
+{
+	left:-33px;
+	background-image:url('/portal/assets/theme/koloko/image/calendar/prev_arrow_out.png');
+}
+</style>
+
+<div class="year_row">
+	
+	<a class="prev_btn" href="/calendar/<?php echo $prev->format('Y') . '/' . $prev->format('m'); ?>"></a>
+	<a class="next_btn" href="/calendar/<?php echo $next->format('Y') . '/' . $next->format('m'); ?>"></a>
+	
+	<?php
+	foreach( $year_row as $month_key => $month_data )
+	{
+		$dt = new DateTime($year . '-' . $month_key . '-01', new DateTimeZone('Europe/London') );
+		$selected_month = ( (string) $month_key === (string) $month ) ? ' selected_month' : '';
+		?>
+	<a href="/calendar/<?php echo $year . '/' . $month_key; ?>" class="year_row_month<?php echo $selected_month; ?>" id="year_row_<?php echo $month_key; ?>">
+		<div>
+			<span class="year_row_month_name"><?php echo $dt->format('M Y'); ?></span>
+			<div class="days">
+				<?php
+				foreach( $month_data->dates as $date => $date_data )
+				{
+					echo '<div class="year_row_day';
+					if( !$date_data->in_this_month ) echo ' not_in_month';
+					if( isset ( $date_data->has_events ) && $date_data->has_events ) echo ' year_row_event';
+					echo '">';
+					echo '</div>';
+				}
+				?>
+			</div>
+		</div>
+	</a>
+	<?php } ?>
+</div>
+
+<script>
+
+var month_height = 0;
+
+$(document).ready(function(evt) {
+	
+	$('.year_row_month').each(function(index, elem) {
+		if( $(this).height() > month_height )
+			month_height = $(this).height();
+	});
+	
+	$('.year_row_month').height( month_height );
+	
+});
+</script>

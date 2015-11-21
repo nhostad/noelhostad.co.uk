@@ -1,0 +1,21 @@
+/* CSS Document */
+
+#video_player
+{
+	background-color:#000000;
+}
+
+#video_player #video_title #client_name
+{
+	color:#00CC66;
+}
+
+#video_player #video_title #project_name
+{
+	color:#FFFFFF;
+}
+
+#video_close_btn
+{
+	color:#FFFFFF;
+}

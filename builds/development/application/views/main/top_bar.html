@@ -1,0 +1,12 @@
+<div id="blackout"></div>
+
+<div id="top_bar">
+
+<?php
+foreach($extra_views as $view)
+{
+	$this->load->view($view['view'], $view['vars']);
+}
+?>
+
+</div>

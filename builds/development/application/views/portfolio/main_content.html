@@ -1,0 +1,50 @@
+<div id="portfolio_container">
+	
+	<?php foreach ( $portfolio_items as $portfolio_item ) { ?>
+	
+		<div class="portfolio_item" data-id="<?php echo $portfolio_item->portfolio_item_id; ?>">
+			<div class="portfolio_thumb">
+			
+				<h3 class="portfolio_item_title">
+					<span class="client_name"><?php echo urldecode ( $portfolio_item->client_name ); ?></span><span class="project_title"><?php echo urldecode ( $portfolio_item->project_name ); ?></span>
+				</h3>
+				
+				<div class="portfolio_video_img"
+					 style="background-image:url('<?php echo urldecode ( $portfolio_item->video_thumb_uri ); ?>');"
+					 title="<?php echo urldecode ( $portfolio_item->video_thumb_alt_text ); ?>">
+					
+					<div class="portfolio_video_img_overlay"></div>
+					<div class="portfolio_play_pause_btn">&#9656;</div>
+				</div>
+				
+				<div class="portfolio_text_content">
+				
+					<?php echo urldecode ( $portfolio_item->blurb ); ?>
+						
+				</div>
+				
+			</div>
+			
+		</div>
+	
+	<?php } ?>
+	
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function(e) {
+	
+	$('.portfolio_video_img_overlay, .portfolio_play_pause_btn').on ( 'mouseover', function ( evt ) {
+		TweenMax.to ( $(this).parent().find('.portfolio_video_img_overlay'), 0.8, {opacity:0} );
+		TweenMax.to ( $(this).parent().find('.portfolio_play_pause_btn'), 0.8, {opacity:1} );
+	});
+	
+	$('.portfolio_video_img_overlay, .portfolio_play_pause_btn').on ( 'mouseout', function ( evt ) {
+		TweenMax.to ( $(this).parent().find('.portfolio_video_img_overlay'), 0.8, {opacity:0.5} );
+		TweenMax.to ( $(this).parent().find('.portfolio_play_pause_btn'), 0.8, {opacity:0.9} );
+	});
+	
+});
+
+</script>

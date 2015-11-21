@@ -1,0 +1,887 @@
+<?php //echo json_encode($month_view); ?>
+<style>
+/* BASE */
+
+body
+{
+	background:none;
+	font-family:calibri;
+}
+
+.calendar
+{
+	position:relative;
+	z-index:10;
+	width:953px;
+	margin:0 auto;
+}
+
+.year_month_title
+{
+	margin:10px 0;
+	padding:10px;
+	border-width:1px 1px 3px 1px;
+	border-style:solid;
+	border-radius:4px;
+}
+
+.calendar_mask
+{
+	position:relative;
+	width:953px;
+	overflow:hidden;
+}
+
+.calendar .next_btn,
+.calendar .prev_btn
+{
+	position:absolute;
+	top:102px;
+	width:41px;
+	height:82px;
+	background-repeat:no-repeat;
+}
+
+.calendar .next_btn,
+.calendar .prev_btn
+{
+	right:-45px;
+	background-image:url('/assets/calendar/next_arrow_out.png');
+}
+
+.calendar .prev_btn
+{
+	left:-35px;
+	background-image:url('/assets/calendar/prev_arrow_out.png');
+}
+
+.day_view
+{
+	position:absolute;
+	top:27px;
+	left:-260px;
+	z-index:30;
+	width:250px;
+	border-width:1px 3px;
+	border-style:solid;
+	box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.16);
+}
+
+.day_view_events
+{
+	position:absolute;
+	top:36px;
+	left:42px;
+}
+
+.day_view_events .day_view_event
+{
+	position:absolute;
+	cursor:pointer;
+	z-index:5;
+	width:198px;
+	border-width:1px;
+	border-style:solid;
+	padding:3px;
+	border-radius:6px;
+}
+
+.day_view .curr_date
+{
+	float:left;
+	width:130px;
+	margin:10px;
+}
+
+.day_view .close_btn
+{
+	float:right;
+	cursor:pointer;
+	margin:10px;
+}
+
+.day_view .hours
+{
+	height:562px;
+	position:relative;
+	overflow-y:scroll;
+}
+
+.day_view .half_hour
+{
+	position:absolute;
+	z-index:2;
+	width:244px;
+	padding:6px 3px;
+	border-bottom-width:1px;
+	border-bottom-style:dotted;
+}
+
+.day_header
+{
+	float:left;
+	width:125px;
+	padding:5px;
+}
+
+.day
+{
+	position:relative;
+	float:left;
+	width:125px;
+	height:90px;
+	border-width:1px;
+	border-style:solid;
+	padding:24px 5px 5px 5px;
+}
+
+.day.mon.first_week
+{ border-radius:7px 0 0 0; }
+
+.day.sun.first_week
+{ border-radius:0 7px 0 0; }
+
+.day.mon.last_week
+{ border-radius:0 0 0 7px; }
+
+.day.sun.last_week
+{ border-radius:0 0 7px 0; }
+
+.day:not(.sun)
+{
+	border-right-width:0;
+}
+
+.day:not(.last_week)
+{
+	border-bottom-width:0;
+}
+
+.date
+{
+	position:absolute;
+	top:5px;
+	right:5px;
+}
+
+.day .events
+{
+	overflow-y:hidden;
+}
+
+.day .event
+{
+	position:relative;
+	cursor:pointer;
+	border-radius:6px;
+	border-width:1px;
+	border-style:solid;
+	padding:3px;
+	overflow:hidden;
+	margin-bottom:1px;
+}
+
+.day .event_name
+{
+	width:100px;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
+.event_name_elipsis
+{
+	position:absolute;
+	width:10px;
+	top:3px;
+	right:5px;
+}
+
+.more_events
+{
+	display:none;
+	cursor:pointer;
+	width:117px;
+	position:absolute;
+	bottom:0;
+	border-radius:6px;
+	border-width:1px;
+	border-style:solid;
+	padding:3px;
+	margin-bottom:1px;
+}
+
+.event_view
+{
+	position:absolute;
+	left:-290px;
+	top:53px;
+	z-index:20;
+	width:248px;
+	height:545px;
+	border-radius:0 4px 4px 0;
+	box-shadow:1px 1px 1px rgba(100, 150, 255, 0.18);
+}
+
+.event_view_header
+{
+	padding:4px 4px 4px 10px;
+	border-width:1px;
+	border-style:solid;
+	border-radius:0 4px 0 0;
+}
+
+.event_view_header .close_btn
+{
+	margin-top:2px;
+	float:right;
+	cursor:pointer;
+}
+
+.event_view_content
+{
+	height:507px;
+	padding:4px 4px 4px 10px;
+	border-style:solid;
+	border-width:1px;
+	border-bottom-width:4px;
+	border-radius:0 0 4px 0;
+}
+
+.event_view input[type="text"],
+.event_view textarea
+{
+	width:206px;
+	border-bottom-width:1px !important;
+}
+
+.event_view select[name="dd_set_time_hour"],
+.event_view select[name="dd_set_time_min"]
+{
+	float:left;
+	margin-right:5px;
+}
+
+.event_view textarea
+{
+	height:150px;
+}
+
+#save_event_btn,
+#edit_event_btn
+{
+	width:227px;
+}
+
+/* COLOUR */
+
+.year_month_title
+{
+	background-color:#FCD675;
+	color:#FFFFFF;
+	border-color:#EFC04A;
+}
+
+.day_view
+{
+	background:#FFCC00;
+	border-color:#DDAA00;
+}
+
+.day_view .curr_date
+{
+	color:#FFFFFF;
+}
+
+.day_view .close_btn
+{
+	color:#FFFFEE;
+}
+
+.day_view .half_hour
+{
+	background:#FFFFEE;
+	border-color:#DDCCBB;
+}
+
+.day_view_events .day_view_event
+{
+	background: #fff7f7; /* Old browsers */
+	background: -moz-linear-gradient(top,  #fff7f7 0%, #efdad0 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff7f7), color-stop(100%,#efdad0)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #fff7f7 0%,#efdad0 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #fff7f7 0%,#efdad0 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #fff7f7 0%,#efdad0 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #fff7f7 0%,#efdad0 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff7f7', endColorstr='#efdad0',GradientType=0 ); /* IE6-9 */
+
+	border-color:#EEBB88;
+	color:#BB3333;
+}
+
+.day_view_events .day_view_event_selected
+{
+	background: #FDDADA; /* Old browsers */
+	background: -moz-linear-gradient(top,  #FDDADA 0%, #F0C0A9 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FDDADA), color-stop(100%,#F0C0A9)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #FDDADA 0%,#F0C0A9 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #FDDADA 0%,#F0C0A9 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #FDDADA 0%,#F0C0A9 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #FDDADA 0%,#F0C0A9 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FDDADA', endColorstr='#F0C0A9',GradientType=0 ); /* IE6-9 */
+}
+
+.day
+{
+	border-color:#DDDDDD;
+	background:#FFFFFF;
+	color:#888888;
+}
+
+.day:not(.in_this_month)
+{
+	opacity:0.55;
+}
+
+.day.weekend
+{
+	background:#FFF4F4;
+	color:#CC0000;
+}
+
+.event
+{
+	background: #fefcea; /* Old browsers */
+	background: -moz-linear-gradient(top,  #fefcea 0%, #fae8b5 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefcea), color-stop(100%,#fae8b5)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #fefcea 0%,#fae8b5 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #fefcea 0%,#fae8b5 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #fefcea 0%,#fae8b5 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #fefcea 0%,#fae8b5 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#fae8b5',GradientType=0 ); /* IE6-9 */
+
+	border-color:#EEBB88;
+	color:#996633;
+}
+
+.more_events
+{
+	background: #f0f9ff; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f0f9ff 0%, #ceecff 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f9ff), color-stop(100%,#ceecff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f0f9ff 0%,#ceecff 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f0f9ff 0%,#ceecff 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f0f9ff 0%,#ceecff 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f0f9ff 0%,#ceecff 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#ceecff',GradientType=0 ); /* IE6-9 */
+
+	border-color:#88BCEE;
+	color:#339ECC;
+}
+
+.event_view
+{
+	
+}
+
+.event_view_header
+{
+	color:#FFFFFF;
+	border-color:#0066CC;
+	
+	background: #53cbf1; /* Old browsers */
+	background: -moz-linear-gradient(top,  #53cbf1 0%, #05abe0 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#53cbf1), color-stop(100%,#05abe0)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #53cbf1 0%,#05abe0 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #53cbf1 0%,#05abe0 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #53cbf1 0%,#05abe0 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #53cbf1 0%,#05abe0 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#53cbf1', endColorstr='#05abe0',GradientType=0 ); /* IE6-9 */
+}
+
+.event_view_content
+{
+	color:#0066CC;
+	border-color:#ADE0F2;
+	
+	background: #EEF8FF; /* Old browsers */
+	background: -moz-linear-gradient(top,  #ffffff 0%, #f0f9ff 20%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(20%,#f0f9ff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #ffffff 0%,#f0f9ff 20%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #ffffff 0%,#f0f9ff 20%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #ffffff 0%,#f0f9ff 20%); /* IE10+ */
+	background: linear-gradient(to bottom,  #ffffff 0%,#f0f9ff 20%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f0f9ff',GradientType=0 ); /* IE6-9 */
+}
+
+/* TYPEFACE */
+
+.year_month_title
+{
+	text-align:center;
+	text-transform:uppercase;
+	font-size:22px;
+	font-family:'Oswald';
+}
+
+.day_view .half_hour
+{
+	font-family:Georgia;
+	font-size:12px;
+}
+
+.day_view_events .day_view_event
+{
+	font-size:14px;
+}
+
+.day_header
+{
+	text-align:center;
+	font-family:'Oswald';
+}
+
+.date
+{
+	font-family:Georgia;
+	font-size:14px;
+}
+
+.event
+{
+	font-size:10px;
+}
+
+.more_events
+{
+	text-align:center;
+	font-size:10px;
+}
+
+.close_btn
+{
+	font-size:14px;
+}
+
+</style>
+
+<div class="calendar">
+	
+	<div class="year_month_title"><?php echo $month_dt->format('F Y'); ?></div>
+	
+	<a class="prev_btn" href="/calendar/<?php echo $prev->format('Y') . '/' . $prev->format('m'); ?>"></a>
+	<a class="next_btn" href="/calendar/<?php echo $next->format('Y') . '/' . $next->format('m'); ?>"></a>
+	
+	<div class="calendar_mask">
+	
+		<div class="day_view">
+			<div class="curr_date">Thu 9th April 2015</div>
+			<div class="close_btn">&laquo; Close</div>
+			<div class="clear"></div>
+			<div class="hours">
+				<div class="day_view_events"></div>
+				<?php for($i = 0; $i < 24; $i++) { ?>
+				<div class="half_hour" style="top:<?php echo ($i * 50); ?>px;"><?php echo MathNH::alz( $i, 2 ) . ':00'; ?></div>
+				<div class="half_hour" style="top:<?php echo ($i * 50) + 25; ?>px;"><?php echo MathNH::alz( $i, 2 ) . ':30'; ?></div>
+				<?php } ?>
+			</div>
+		</div>
+		
+		<div class="event_view">
+			<div class="event_view_header">
+				<span>Event</span>
+				<span class="close_btn">&laquo; Close</span>
+			</div>
+			<div class="event_view_content">
+				<label for="tf_event_view_name">Event Name:</label>
+				<input type="text" id="tf_event_view_name">
+				<label for="tf_event_view_date">Date:</label>
+				<input type="text" id="tf_event_view_date">
+				<label for="tf_event_view_time">Time:</label>
+				<div class="clear"></div>
+				<select name="dd_set_time_hour" id="dd_set_time_hour"><?php for($i = 0; $i < 24; $i++) echo '<option value="' . MathNH::alz($i, 2) . '">' . MathNH::alz($i, 2) . '</option>'; ?></select>
+				<select name="dd_set_time_min" id="dd_set_time_min"><?php for($i = 0; $i < 60; $i += 5) echo '<option value="' . MathNH::alz($i, 2) . '">' . MathNH::alz($i, 2) . '</option>'; ?></select>
+				<div class="clear"></div>
+				<label for="tf_event_view_location">Location:</label>
+				<input type="text" id="tf_event_view_location">
+				<label for="ta_event_view_notes">Notes:</label>
+				<textarea id="ta_event_view_notes"></textarea>
+				<!--<input type="button" id="save_event_btn" class="gen_btn green_btn" value="Save">-->
+				<input type="button" id="edit_event_btn" class="gen_btn blue_btn" value="Edit This Event">
+			</div>
+		</div>
+		
+		<div class="day_header">Mon</div>
+		<div class="day_header">Tue</div>
+		<div class="day_header">Wed</div>
+		<div class="day_header">Thu</div>
+		<div class="day_header">Fri</div>
+		<div class="day_header">Sat</div>
+		<div class="day_header">Sun</div>
+		<div class="clear"></div>
+		
+	<?php
+	$d = 0;
+	foreach($month_view as $date => $date_record)
+	{
+		$dt = new DateTime ( $date, new DateTimeZone ( 'Europe/London' ) );
+		
+		$date_record->date_vars = new stdClass();
+		$date_record->date_vars->d = $dt->format('d');
+		$date_record->date_vars->m = $dt->format('m');
+		$date_record->date_vars->M = $dt->format('M');
+		$date_record->date_vars->Y = $dt->format('Y');
+		$date_record->date_vars->F = $dt->format('F');
+		$date_record->date_vars->S = $dt->format('S');
+		$date_record->date_vars->D = $dt->format('D');
+		$date_record->date_vars->j = $dt->format('j');
+		
+		if( $dt->format( 'w' ) === '0' )
+			$class = 'day weekend sun';
+		else if( $dt->format( 'w' ) === '1' )
+			$class = 'day weekday mon';
+		else if( $dt->format( 'w' ) === '2' )
+			$class = 'day weekday tue';
+		else if( $dt->format( 'w' ) === '3' )
+			$class = 'day weekday wed';
+		else if( $dt->format( 'w' ) === '4' )
+			$class = 'day weekday thu';
+		else if( $dt->format( 'w' ) === '5' )
+			$class = 'day weekday fri';
+		else if( $dt->format( 'w' ) === '6' )
+			$class = 'day weekend sat';
+		
+		if( isset ( $date_record->in_this_month ) && $date_record->in_this_month )
+			$class .= ' in_this_month';
+		
+		if( $d < 7 )
+			$class .= ' first_week';
+		else if( count ( $month_view ) - $d < 8 )
+			$class .= ' last_week';
+		
+		echo '<div class="' . $class . '" data-date="' . $dt->format('d') . '" data-month="' . $dt->format('m') . '" data-year="' . $dt->format('Y') . '" data-dow="' . $dt->format('w') . '">';
+		
+		echo '<div class="date">' . $dt->format('d') . '</div>';
+		
+		// - EVENTS
+		
+		echo '<div class="events">';
+		
+		for($e = 0; $e < count ( $date_record->events ); $e++ )
+		{
+			$time_dt = new DateTime ( $date_record->events[$e]->date . ' ' . $date_record->events[$e]->time, new DateTimeZone('Europe/London') );
+			
+			$date_record->events[$e]->f_date	= $time_dt->format('d-m-Y');
+			$date_record->events[$e]->f_time	= $time_dt->format('H:i');
+			$date_record->events[$e]->intH		= (int) $time_dt->format('H');
+			$date_record->events[$e]->dec_mins	= (int) $time_dt->format('i') / 60;
+			$date_record->events[$e]->H			= $time_dt->format('H');
+			$date_record->events[$e]->i			= $time_dt->format('i');
+			
+			echo '<div class="event">';
+			echo '<div class="event_name noselect">';
+			echo '<span class="inner_width">';
+			echo $time_dt->format('H:i') . ' ' . Str::decode ( $date_record->events[$e]->event_name );
+			echo '</span>';
+			echo '</div>';
+			echo '<div class="event_name_elipsis">...</div>';
+			echo '</div>';
+		}
+		
+		echo '</div>';//events
+		
+		echo '<div class="more_events">' . ( count ( $date_record->events ) - 4 ) . ' More' . '</div>';
+		
+		echo '</div>';
+		
+		if( $dt->format( 'w' ) === '0' )
+		echo '<div class="clear"></div>';
+		
+		$d++;
+	}
+	?>
+	</div><!--MASK-->
+
+</div><!--CALENDAR-->
+
+<script>
+
+var keys = {
+	cmd_pressed : false,
+};
+
+var calendar = {
+	curr_date : null,
+	curr_event : null,
+	curr_full_date : null,
+	curr_month : null,
+	curr_year : null,
+	day_height : 90,
+	dow : null,
+	event_view_in : '255px',
+	event_view_out : '-255px',
+	left_out : '-260px',
+	left_in : 0,
+	month_view : JSON.parse('<?php echo json_encode($month_view); ?>'),
+	open_state : -1,// -1 closed, 1 open
+	open_pos : -1,// -1 left, 1 right
+	right_out : '957px',
+	right_in : '697px',
+	selected_events : [],
+	open_day_view : function()
+	{
+		calendar.selected_events = [];
+		
+		if( this.dow === '8' || this.dow === '9' )
+		{
+			if( this.open_pos === -1 && this.open_state === 1 )
+			{
+				TweenMax.to( $('.day_view'), 0.5, {'left':calendar.left_out, 'ease':Cubic.easeOut, onComplete:function() {
+					$('.day_view').css('left', calendar.right_out);
+				}} );
+				
+				TweenMax.to( $('.day_view'), 0.5, {'left':calendar.right_in, 'ease':Cubic.easeOut, delay:0.5} );
+			}
+			else
+			{
+				if( this.open_state === -1 ) $('.day_view').css('left', calendar.right_out);
+				TweenMax.to( $('.day_view'), 0.5, {'left':calendar.right_in, 'ease':Cubic.easeOut} );
+			}
+			
+			$('.day_view').css('box-shadow', '-2px 0px 4px rgba(0, 0, 0, 0.16)');
+			$('.day_view .close_btn').html('Close &raquo;');
+			this.open_pos = 1;
+		}
+		else
+		{
+			if( this.open_pos === 1 && this.open_state === 1 )
+			{
+				TweenMax.to( $('.day_view'), 0.5, {'left':calendar.right_out, 'ease':Cubic.easeOut, onComplete:function() {
+					$('.day_view').css('left', calendar.left_out);
+				}} );
+				
+				TweenMax.to( $('.day_view'), 0.5, {'left':calendar.left_in, 'ease':Cubic.easeOut, delay:0.5} );
+			}
+			else
+			{
+				if( this.open_state === -1 ) $('.day_view').css('left', calendar.left_out);
+				TweenMax.to( $('.day_view'), 0.5, {'left':calendar.left_in, 'ease':Cubic.easeOut} );
+			}
+			
+			$('.day_view').css('box-shadow', '2px 0px 4px rgba(0, 0, 0, 0.16)');
+			$('.day_view .close_btn').html('&laquo; Close');
+			this.open_pos = -1;
+		}
+		
+		if( this.open_state === -1 ) this.open_state = 1;
+		
+		$('.day_view .hours').scrollTop(250);
+	},
+	close_day_view : function()
+	{
+		if( this.dow === '8' || this.dow === '9' )
+		{
+			TweenMax.to( $('.day_view'), 0.5, {'left':calendar.right_out, 'ease':Cubic.easeOut} );
+		}
+		else
+		{
+			TweenMax.to( $('.day_view'), 0.5, {'left':calendar.left_out, 'ease':Cubic.easeOut} );
+			TweenMax.to ( $('.event_view'), 0.5, {'left':calendar.event_view_out, 'ease':Cubic.easeOut} );
+		}
+		
+		this.open_state = -1;
+	},
+	load_day_view : function()
+	{
+		var event, hgt, textual_date, top;
+		textual_date  = this.month_view[this.curr_full_date].date_vars.D + ' ';
+		textual_date += this.month_view[this.curr_full_date].date_vars.j;
+		textual_date += this.month_view[this.curr_full_date].date_vars.S + ' ';
+		textual_date += this.month_view[this.curr_full_date].date_vars.M + ' ';
+		textual_date += this.month_view[this.curr_full_date].date_vars.Y;
+		$('.day_view .curr_date').html( textual_date );
+		
+		$('.day_view .day_view_events').html('');
+		
+		for(var i = 0; i < this.month_view[this.curr_full_date].events.length; i++)
+		{
+			event  = '<div class="day_view_event noselect" data-index="' + i + '" data-id="' + this.month_view[this.curr_full_date].events[i].event_id + '">';
+			
+			event += this.month_view[this.curr_full_date].events[i].f_time + ' ';
+			event += this.month_view[this.curr_full_date].events[i].event_name;
+			
+			event += '</div>';
+			
+			$('.day_view .day_view_events').append(event);
+			
+			top = ( ( this.month_view[this.curr_full_date].events[i].intH + this.month_view[this.curr_full_date].events[i].dec_mins ) * 50) - 35;
+			hgt = ( ( this.month_view[this.curr_full_date].events[i].duration / 60 ) * 50 - 11 );
+			
+			$('.day_view_event[data-index="' + i + '"]').css( 'top', top + 'px' );
+			$('.day_view_event[data-index="' + i + '"]').css( 'height', hgt + 'px' );
+		}
+		
+		$('.day_view_event').off('click');
+		$('.day_view_event').on('click', function(evt) {
+			calendar.select_event( $(this) );
+		});
+		
+		$('.day_view_event').off('dblclick');
+		$('.day_view_event').on('dblclick', function(evt) {
+			calendar.load_event( $(this) );
+		});
+	},
+	load_event : function( elem )
+	{
+		calendar.curr_event = this.month_view[this.curr_full_date].events[ elem.attr ( 'data-index' ) ];
+		
+		$('#tf_event_view_name').val( calendar.curr_event.fld_event_name );
+		$('#tf_event_view_date').val( calendar.curr_event.f_date );
+		$('#dd_set_time_hour').select_by_value( String ( calendar.curr_event.H ) );
+		$('#dd_set_time_min').select_by_value( String ( calendar.curr_event.i ) );
+		$('#tf_event_view_location').val( calendar.curr_event.fld_location );
+		$('#ta_event_view_notes').val( calendar.curr_event.fld_notes );
+		
+		if( calendar.curr_event.fld_owner === '1' && is_admin )
+			$('#edit_event_btn').show();
+		else
+			$('#edit_event_btn').hide();
+		
+		/*// - TEMP DISABLE FOR ALL
+		if( event.fld_owner === '1' )
+		{
+			$('#tf_event_view_name').prop( 'disabled', false );
+			$('#tf_event_view_date').prop( 'disabled', false );
+			$('#dd_set_time_hour').prop( 'disabled', false );
+			$('#dd_set_time_min').prop( 'disabled', false );
+			$('#tf_event_view_location').prop( 'disabled', false );
+			$('#ta_event_view_notes').prop( 'disabled', false );
+		}
+		else
+		{*/
+			$('#tf_event_view_name').prop( 'disabled', true );
+			$('#tf_event_view_date').prop( 'disabled', true );
+			$('#dd_set_time_hour').prop( 'disabled', true );
+			$('#dd_set_time_min').prop( 'disabled', true );
+			$('#tf_event_view_location').prop( 'disabled', true );
+			$('#ta_event_view_notes').prop( 'disabled', true );
+		/*}*/
+		
+		calendar.open_event_view();
+		
+		$('#edit_event_btn').off('click');
+		$('#edit_event_btn').on('click', function(evt) {
+			var dest;
+			
+			switch ( Number ( calendar.curr_event.fld_model_idf ) )
+			{
+				case 1:
+					window.location.href = '/observation/edit/' + calendar.curr_event.fld_model_pk_id;
+					break;
+				case 2:
+					window.location.href = '/face-to-face-training/edit/' + calendar.curr_event.fld_model_pk_id;
+					break;
+			}
+		});
+	},
+	open_event_view : function()
+	{
+		TweenMax.to ( $('.event_view'), 0.5, {'left':calendar.event_view_in, 'ease':Cubic.easeOut} );
+	},
+	close_event_view : function()
+	{
+		calendar.curr_event = null;
+		TweenMax.to ( $('.event_view'), 0.5, {'left':calendar.event_view_out, 'ease':Cubic.easeOut} );
+	},
+	select_event : function( elem )
+	{
+		if( keys.cmd_pressed )
+		{
+			if( calendar.selected_events.indexOf( elem.attr('data-id') ) == -1 )
+				calendar.selected_events.push( elem.attr('data-id') );
+		}
+		else
+		{
+			calendar.selected_events = [elem.attr('data-id')];
+		}
+		
+		$('.day_view_event').removeClass( 'day_view_event_selected' );
+		
+		for(var i = 0; i < calendar.selected_events.length; i++)
+		{
+			$('.day_view_event[data-id="' + calendar.selected_events[i] + '"]').addClass( 'day_view_event_selected' );
+		}
+	},
+};
+
+$(document).ready(function(evt) {	
+	$(document).on('keydown', function(evt) {
+		if( evt.keyCode === 91 )
+			keys.cmd_pressed = true;
+	});
+	
+	$(document).on('keyup', function(evt) {
+		if( evt.keyCode === 91 )
+			keys.cmd_pressed = false;
+	});
+
+	$('.more_events').on('click', function(evt) {
+		evt.stopPropagation();
+		calendar.curr_year = $(this).parent().attr('data-year');
+		calendar.curr_month = $(this).parent().attr('data-month');
+		calendar.curr_date = $(this).parent().attr('data-date');
+		calendar.dow = $(this).parent().attr('data-dow');
+		calendar.curr_full_date = calendar.curr_year + '-' + calendar.curr_month + '-' + calendar.curr_date;
+		calendar.load_day_view();
+		calendar.open_day_view();
+	});
+	
+	$('.event').on('click', function(evt) {
+		evt.stopPropagation();
+		calendar.curr_year = $(this).parent().parent().attr('data-year');
+		calendar.curr_month = $(this).parent().parent().attr('data-month');
+		calendar.curr_date = $(this).parent().parent().attr('data-date');
+		calendar.dow = $(this).parent().parent().attr('data-dow');
+		calendar.curr_full_date = calendar.curr_year + '-' + calendar.curr_month + '-' + calendar.curr_date;
+		calendar.load_day_view();
+		calendar.open_day_view();
+	});
+	
+	$('.day').on('click', function(evt) {
+		calendar.curr_year = $(this).attr('data-year');
+		calendar.curr_month = $(this).attr('data-month');
+		calendar.curr_date = $(this).attr('data-date');
+		calendar.dow = $(this).attr('data-dow');
+		calendar.curr_full_date = calendar.curr_year + '-' + calendar.curr_month + '-' + calendar.curr_date;
+		calendar.load_day_view();
+		calendar.open_day_view();
+	});
+	
+	$('.day_view .hours').height( $('.calendar').height() - 65 );
+	
+	$('.day_view .close_btn').on('click', function(evt) {
+		calendar.close_day_view();
+	});
+	
+	$('.event_view_header .close_btn').on('click', function(evt) {
+		calendar.close_event_view();
+	});
+	
+	$('#tf_event_view_date').datepicker();
+	$('#tf_event_view_date').datepicker( "option", {dateFormat : 'dd-mm-yy'} );
+	
+	$('.events').each(function(index, elem) {
+		if( $(this).height() > calendar.day_height + 15 )
+		{
+			$(this).height(76);
+			$(this).parent().find('.more_events').show();
+		}
+	});
+	
+	$('.event').each(function(index, elem) {
+		if ( $(this).find('.inner_width').width() > 100 )
+			$(this).find('.event_name_elipsis').show();
+		else
+			$(this).find('.event_name_elipsis').hide();
+	});
+});
+</script>
