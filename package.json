@@ -2,14 +2,22 @@
   "name": "noelhostad.co.uk",
   "version": "0.0.1",
   "description": "My Portfolio Site",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "?.git"
   },
   "author": "Noel Hostad",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-compass": "^2.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-if": "^2.0.0",
+    "gulp-jsonminify": "^1.0.0",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7"
+  }
 }

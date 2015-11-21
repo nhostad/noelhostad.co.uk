@@ -1,0 +1,220 @@
+/* --------------------------------------------------
+   Custom Styles
+---------------------------------------------------*/
+
+/* --------------------------------------------------
+   Global Resets
+---------------------------------------------------*/
+
+body {
+	background : url('../_images/main_bg.png');
+	background-attachment : fixed;
+
+	font-family : $headFont;
+	font-weight : 500;
+	font-style : normal;
+}
+
+#{headings()} {
+	font-family : $headFont;
+	font-weight : 200;
+}
+
+p {
+	font-family : $bodyFont;
+}
+
+.button {
+	font-family : $btnFont;
+	font-weight : 700;
+}
+
+/* --------------------------------------------------
+   Top Navigation Styles
+---------------------------------------------------*/
+
+.top-bar {
+	height : 5rem;
+
+	background : url('../_images/main_bg.png');
+
+	font-family : bebas-neue, Arial, sans-serif;
+}
+
+.top-bar .site-name .my-name,
+.top-bar .site-name .suffix
+{
+	margin-top : 2.5rem;
+
+	font-size : 2rem;
+}
+
+.top-bar .yellow-arrow {
+	background : url('_images/yellow-arrow.png') no-repeat;
+	width : 10px;
+	height : 50px;
+}
+
+.top-bar .my-name {
+	padding : 8px;
+
+	color : $yellow;
+	background-color : $darkBlue;
+}
+
+.top-bar .suffix {
+	padding : 8px 8px 8px 4px;
+
+	color : $darkBlue;
+	background-color : $yellow;
+}
+
+.menu {
+	color : $darkBlue;
+	padding-left : 30px;
+}
+
+.top-bar ul > li a:not(.button) {
+	padding-left : 0;
+	font-weight : normal;
+	font-size : 3rem;
+}
+
+.big-nav-btn {
+	cursor : pointer;
+	margin : 0.25rem 0;
+
+	line-height : 1;
+}
+
+.work-eg-web-dev-btn {
+	padding : 5.8rem 1rem 1rem 1rem;
+
+	background-color : $yellow;
+	color : $darkBlue;
+	text-align : right;
+}
+
+.work-eg-web-dev-btn span:first-child {
+	font-size : 2rem;
+}
+
+.work-eg-web-dev-btn span:last-child {
+	font-size : 2.2rem;
+}
+
+.about-me-btn {
+	padding : 1rem 1rem 5rem 1rem;
+
+	background-color : $darkBlue;
+	color : $yellow;
+	text-align : left;
+}
+
+.about-me-btn span:first-child {
+	font-size : 3rem;
+}
+
+.about-me-btn span:last-child {
+	font-size : 2rem;
+}
+
+.make-contact-btn {
+	padding : 1rem 1rem 4.6rem 1rem;
+
+	background-color : $darkBlue;
+	color : $yellow;
+	text-align : right;
+}
+
+.make-contact-btn span:first-child {
+	font-size : 3rem;
+}
+
+.make-contact-btn span:last-child {
+	font-size : 1.9rem;
+}
+
+.work-eg-e-learning-btn {
+	padding : 5rem 1rem 1rem 1rem;
+
+	background-color : $yellow;
+	color : $darkBlue;
+	text-align : left;
+}
+
+.work-eg-e-learning-btn span:first-child {
+	font-size : 2rem;
+}
+
+.work-eg-e-learning-btn span:last-child {
+	font-size : 2.5rem;
+}
+
+/* --------------------------------------------------
+   Header Styles
+---------------------------------------------------*/
+
+/* --------------------------------------------------
+   Main Article Styles
+---------------------------------------------------*/
+
+/* --------------------------------------------------
+   Sidebar Styles
+---------------------------------------------------*/
+
+/* --------------------------------------------------
+   Footer Styles
+---------------------------------------------------*/
+
+/* Small display targeting */
+@media only screen and (max-width: 767px) {
+
+/* --------------------------------------------------
+   Top Navigation Styles
+---------------------------------------------------*/
+
+.top-bar ul > li.has-dropdown .dropdown {
+	position : static;
+	visibility : visible;
+}
+
+.top-bar ul > li.has-dropdown .dropdown > li {
+	margin-left : 1rem;
+}
+
+.top-bar ul > li.has-dropdown .dropdown > li ::before {
+	content : "- ";
+}
+
+.top-bar ul > li.has-dropdown:hover > .dropdown,
+.top-bar ul > li.has-dropdown:focus > .dropdown {
+	visibility : visible;
+}
+
+.top-bar ul > li.has-dropdown a:after {
+	top : 0;
+	margin-top : 14px;
+}
+
+/* --------------------------------------------------
+   Header Styles
+---------------------------------------------------*/
+
+/* --------------------------------------------------
+   Main Article Styles
+---------------------------------------------------*/
+
+/* --------------------------------------------------
+   Sidebar Styles
+---------------------------------------------------*/
+
+/* --------------------------------------------------
+   Footer Styles
+---------------------------------------------------*/
+
+}
+
+@media only screen and (min-width : 960px) {
+
+}
