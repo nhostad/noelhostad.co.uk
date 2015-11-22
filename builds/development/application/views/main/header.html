@@ -1,48 +1,131 @@
-<header>
+<a id="top"></a>
+    <div class="row top-bar-host">
+      <nav role="navigation" data-topbar class="top-bar">
+        <ul class="title-area left">
+          <li class="name">
+            <a class="site-name" href="#">
+              <span class="my-name">NOELHOSTAD</span><span class="suffix">.CO.UK</span>
+              <img class="yellow-arrow" src="/images/yellow-arrow.png">
+            </a>
+          </li>
+        </ul>
+        <ul class="right">
+          <li class="back-to-top"><a href="#top">BACK TO TOP &#9701;</a></li>
+        </ul>
+        <ul class="mini-links row">
+          <li class="about-me-mini-link mini-link small-3 columns"><a href="/">ABOUT ME</a></li>
+          <li class="web-dev-mini-link mini-link small-3 columns"><a href="/web-dev">WEB DEV</a></li>
+          <li class="elearning-mini-link mini-link small-3 columns"><a href="/e-learning">E-LEARNING</a></li>
+          <li class="contact-mini-link mini-link small-3 columns"><a href="#contact">CONTACT</a></li>
+        </ul>
+      </nav>
+    </div>
 
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Welcome to my portfolio</h1>
+      </div>
+    </div>
 
+    <!--NAV-->
 
-			<div id="header_inner">
-				<a href="http://www.juice-elearning.co.uk"><div id="header_logo"></div></a>
-				<nav>
-					<ul>
-						<li class="full_nav" id="fn_about"><a href="<?php echo base_url ( 'about' ); ?>">ABOUT US</a></li>
-                        <li class="full_nav" id="fn_bespoke"><a href="<?php echo base_url ( 'bespoke-e-learning' ); ?>">BESPOKE E-LEARNING</a></li>
-                        <li class="full_nav" id="fn_mobile"><a href="<?php echo base_url ( 'mobile' ); ?>">MOBILE</a></li>
-                        <li class="full_nav" id="fn_lms"><a href="<?php echo base_url ( 'learner-management-systems' ); ?>">LEARNER MANAGEMENT SYSTEMS</a></li>
-						<li class="full_nav" id="fn_portfolio"><a href="<?php echo base_url ( 'portfolio' ); ?>">PORTFOLIO</a></li>
-						<li class="full_nav" id="fn_sectors">
-							<a href="#">SECTORS</a>
-							<ul>
-								<li><a href="<?php echo base_url ( 'sector/pharmaceuticals' ); ?>">PHARMACEUTICALS</a></li>
-								<li><a href="<?php echo base_url ( 'sector/healthcare' ); ?>">HEALTHCARE</a></li>
-							</ul>
-						</li>
-						<li class="full_nav" id="fn_contact"><a href="<?php echo base_url ( 'contact' ); ?>">CONTACT</a></li>
-                        <li id="more">
-							<a href="#" id="more_link">&nbsp;&#9662;</a>
-							<ul id="tier_1">
-								<li class="more_nav" id="m_about"><a href="<?php echo base_url ( 'about' ); ?>">ABOUT US</a></li>
-                                <li class="more_nav" id="m_bespoke"><a href="<?php echo base_url ( 'bespoke-e-learning' ); ?>">BESPOKE E-LEARNING</a></li>
-                                <li class="more_nav" id="m_mobile"><a href="<?php echo base_url ( 'mobile' ); ?>">MOBILE</a></li>
-                                <li class="more_nav" id="m_lms"><a href="<?php echo base_url ( 'learner-management-systems' ); ?>">LEARNER MANAGEMENT SYSTEMS</a></li>
-                                <li class="more_nav" id="m_portfolio"><a href="<?php echo base_url ( 'portfolio' ); ?>">PORTFOLIO</a></li>
-                                <li class="more_nav" id="m_sectors">
-                                    <a href="#">SECTORS</a>
-                                    <ul>
-                                        <li><a href="<?php echo base_url ( 'sector/pharmaceuticals' ); ?>">PHARMACEUTICALS</a></li>
-                                        <li><a href="<?php echo base_url ( 'sector/healthcare' ); ?>">HEALTHCARE</a></li>
-                                    </ul>
-                                </li>
-                                <li class="more_nav" id="m_contact"><a href="<?php echo base_url ( 'contact' ); ?>">CONTACT</a></li>
-							</ul>
-						</li>
-					</ul>
-                    
-                
-                    
-				</nav>
-				<!--<a id="client_login" href="client-login">CLIENT LOGIN</a>-->
-			</div>
-			<div id="header_bg"></div>
-		</header>
+    <!--SMALL SCREEN NAV-->
+
+    <div class="row hide-for-medium-up small-big-nav">
+      <div class="small-8 large-4 columns">
+        <a href="/web-dev">
+          <div class="work-eg-web-dev-btn big-nav-btn no-select">
+            <div class="big-nav-btn-text">
+              <span>Work&nbsp;Examples</span><br><span>Web&nbsp;Development</span>
+            </div>
+            <div class="big-nav-btn-bg"></div>
+          </div>
+        </a>
+      </div>
+      <div class="small-4 large-2 columns">
+        <a href="/">
+          <div class="about-me-btn big-nav-btn no-select">
+            <div class="big-nav-btn-text">
+              <span>About</span><br><span>Me</span>
+            </div>
+            <div class="big-nav-btn-bg"></div>
+          </div>
+        </a>
+      </div>
+      <div class="small-4 large-2 columns">
+        <a href="#contact">
+          <div class="make-contact-btn big-nav-btn no-select">
+            <div class="big-nav-btn-text">
+              <span>Make</span><br><span>Contact</span>
+            </div>
+            <div class="big-nav-btn-bg"></div>
+          </div>
+        </a>
+      </div>
+      <div class="small-8 large-4 columns">
+        <a href="/e-learning">
+          <div class="work-eg-e-learning-btn big-nav-btn no-select">
+            <div class="big-nav-btn-text">
+              <span>Work&nbsp;Examples</span><br><span>E-learning</span>
+            </div>
+            <div class="big-nav-btn-bg"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!--/SMALL SCREEN NAV-->
+
+    <!--LARGE SCREEN NAV-->
+
+    <div class="row hide-for-small large-big-nav no-select">
+      <div class="medium-4 large-4 columns">
+        <a href="/web-dev">
+          <div class="work-eg-web-dev-btn big-nav-btn">
+            <div class="big-nav-btn-text">
+              <span>Work&nbsp;Examples</span><br><span>Web&nbsp;Development</span>
+            </div>
+            <div class="big-nav-btn-bg"></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="medium-2 large-2 columns">
+        <div class="row">
+          <a href="/">
+            <div class="about-me-btn big-nav-btn no-select">
+              <div class="big-nav-btn-text">
+                <span>About</span><br><span>Me</span>
+              </div>
+              <div class="big-nav-btn-bg"></div>
+            </div>
+          </a>
+        </div>
+
+        <div class="row">
+          <a href="#contact">
+            <div class="make-contact-btn big-nav-btn no-select">
+              <div class="big-nav-btn-text">
+                <span>Make</span><br><span>Contact</span>
+              </div>
+              <div class="big-nav-btn-bg"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="medium-6 large-6 columns">
+        <a href="/e-learning">
+          <div class="work-eg-e-learning-btn big-nav-btn no-select">
+            <div class="big-nav-btn-text">
+              <span>Work&nbsp;Examples</span><br><span>E-learning</span>
+            </div>
+            <div class="big-nav-btn-bg"></div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!--/LARGE SCREEN NAV-->
+
+    <!--/NAV-->

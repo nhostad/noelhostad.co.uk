@@ -1,0 +1,52 @@
+<div class="row about-me">
+      <div class="large-8 columns">
+        <div class="panel">
+          <p>Hi! Thanks, for taking the time to look at my site. I hope you like what you see so far...</p>
+          <h5 class="heading">"Why?" is often the most important question.</h5>
+          <p>Why do I choose to do what I do?
+             Well, frankly I think it's the most creatively satisfying work there is, or at least it is for me.
+             Taking a project from inception to completion, with all the unexpected problems and their solutions
+             is a lot of fun but what the end user takes from it is even better: a client that's able to improve the way
+             they work using your system or a student that finally got a difficult concept because of the way you helped
+             them interact with a simulation. These are the reasons I do the work I do.</p>
+          <h5 class="heading">What have I been doing?</h5>
+          <p>I've been working in a variety of digital media for the past 10 years. Starting out as a web designer,
+             I've gradually moved more toward a development skillset.
+             Along the way I've also transferred a lot of this design and development mix into e-learning content.
+             I've built on every level of depth of interaction from very basic information-only courses to simulations of complex manufactoring technology.</p>
+          <h5 class="heading">What can I do?</h5>
+          <p>Well I have experience building:</p>
+          <ul>
+            <li>Websites (including e-commerce)</li>
+            <li>E-learning Courses</li>
+            <li>Simulations</li>
+            <li>Web apps, both mobile and desktop</li>
+            <li>Android apps</li>
+          </ul>
+          <p>...using the following technologies and applications...</p>
+          <ul>
+            <li>HTML/HTML5</li>
+            <li>Javascript (including jQuery)</li>
+            <li>CSS/CSS3</li>
+            <li>PHP (including Codeigniter &amp; Laravel)</li>
+            <li>MySQL</li>
+            <li>Actionscript 3.0</li>
+            <li>Articulate Storyline</li>
+            <li>GIT</li>
+            <li>SCORM</li>
+            <li>Photoshop</li>
+            <li>Illustrator</li>
+            <li>Xcode</li>
+            <li>Flash</li>
+            <li>Audition</li>
+          </ul>
+        </div>
+      </div>
+      <?php
+        $large  = ( isset ( $large ) ) ? $large : null;
+        $medium = ( isset ( $medium ) ) ? $medium : null;
+        $small  = ( isset ( $small ) ) ? $small : null;
+      ?>
+      <?php $this->load->view ( 'main/clients.html', array('large' => $large, 'medium' => $medium, 'small' => $small) ); ?>
+
+    </div>

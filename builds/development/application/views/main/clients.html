@@ -1,0 +1,19 @@
+<?php
+  $large  = ( isset ( $large ) ) ? 'large-' . $large . ' ' : '';
+  $medium = ( isset ( $medium ) ) ? 'medium-' . $medium . ' ' : '';
+  $small  = ( isset ( $small ) ) ? 'small-' . $small . ' ' : '';
+  $classes = $large . $medium . $small . ' ';
+?>
+
+<div class="clients <?php echo $classes; ?> columns callout panel">
+        <h2>Some of My Clients...</h2>
+          <ul>
+            <li>Novartis</li>
+            <li>Cristal Global</li>
+            <li>Eden Futures</li>
+            <li>The Grimsby Institute</li>
+            <li>JemBuild</li>
+            <li>Pinnacle Training Solutions</li>
+            <li>BV Associates</li>
+          </ul>
+      </div>

@@ -16,23 +16,27 @@ class Welcome extends CI_Controller {
 				'css/style.css',
 			),
 			'extra_js' => array(
-				'js/greensock/TweenMax.min.js',
-				'js/utils/str.js',
-				'js/home.js',
-				'js/video_player/main.js',
+				array('absolute' => TRUE, 'address' => 'http://use.edgefonts.net/bebas-neue.js'),
+				array('absolute' => TRUE, 'address' => 'http://use.edgefonts.net/neuton.js'),
 			),
 		));
 
-		// - CONTAINER
-		$this->load->view('main/container.html', array(
-			'extra_views' => array(
-				array('view' => 'video_player/player.html', 'vars' => array()),
-				array('view' => 'home/home.html', 'vars' => array()),
-			),
-		));
+		$this->load->view('main/header.html');
+
+		// - CONTENT
+		$this->load->view('about/main.html', array('extra_views' => 'main/clients.html','large' => 4));
+		$this->load->view('contact/main.html', array());
 
 		// - FOOTER
-		//$this->load->view('main/footer.html', array());
+		$this->load->view('main/footer.html', array());
+
+		$this->load->view('main/footer_scripts.html', array(
+			'scripts' => array(
+				'<script src="js/script.js"></script>',
+				'<script src="js/foundation.min.js"></script>',
+				'<script>$(document).foundation();</script>',
+			),
+		));
 
 		// - OMEGA
 		$this->load->view('main/omega.html');

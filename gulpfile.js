@@ -30,7 +30,16 @@ else {
 	sassStyle = 'compressed';
 }
 
-jsSources = [];
+jsSources = [
+  'components/scripts/vendor/jquery-2.0.3.min.js',
+  'components/scripts/utils/str.js',
+  'components/scripts/video_player/main.js',
+  'components/scripts/vendor/modernizr.js',
+  'components/scripts/vendor/greensock/TweenMax.js',
+  'components/scripts/vendor/owl-carousel/owl.carousel.js',
+  //'components/scripts/main.js'//,
+  //'components/scripts/vendor/foundation/foundation.min.js'
+];
 sassSources = ['components/sass/style.scss'];
 htmlSources = [outputDir + '*.html'];
 jsonSources = [outputDir + 'js/*.json'];

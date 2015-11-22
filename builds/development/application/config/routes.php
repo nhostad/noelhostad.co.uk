@@ -60,11 +60,9 @@ $route['botdetect/captcha_resource/get/(:any)'] = 'botdetect/captcha_resource/ge
 // - SECTORS
 $route['sector/(:any)'] = 'sector/index/$1';
 
-// - BESPOKE E LEARNING
-$route['bespoke-e-learning'] = 'bespoke_e_learning';
+// - WEB DEV
+$route['web-dev'] = 'web_dev';
 
-// - LEARNER MANAGEMENT SYSTEMS
-$route['learner-management-systems'] = 'lms';
 
 
 
